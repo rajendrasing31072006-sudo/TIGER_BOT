@@ -41,6 +41,8 @@ export default function Pdfs() {
             <a
               href={pdf.url}
               download
+              target="_blank"
+              rel="noopener noreferrer"
               className="pdf-btn pdf-download-btn"
               title="डाउनलोड"
             >
