@@ -18,7 +18,7 @@ export default function BottomNav() {
       {navItems.map(item => (
         <button
           key={item.path}
-          className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+          className={`nav-item ${location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path + '/')) ? 'active' : ''}`}
           onClick={() => navigate(item.path)}
         >
           <item.icon />

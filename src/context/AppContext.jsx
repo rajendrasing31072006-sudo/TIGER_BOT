@@ -109,21 +109,25 @@ export function AppProvider({ children }) {
 
   const deleteNote = (id) => {
     setNotes(prev => prev.filter(n => n.id !== id));
+    setBookmarks(prev => prev.filter(b => !(b.id === id && b.type === 'note')));
     showToast('नोट्स हटाए गए');
   };
 
   const deletePdf = (id) => {
     setPdfs(prev => prev.filter(p => p.id !== id));
+    setBookmarks(prev => prev.filter(b => !(b.id === id && b.type === 'pdf')));
     showToast('PDF हटाई गई');
   };
 
   const deleteImage = (id) => {
     setImages(prev => prev.filter(i => i.id !== id));
+    setBookmarks(prev => prev.filter(b => !(b.id === id && b.type === 'image')));
     showToast('चित्र हटाया गया');
   };
 
   const deleteVideo = (id) => {
     setVideos(prev => prev.filter(v => v.id !== id));
+    setBookmarks(prev => prev.filter(b => !(b.id === id && b.type === 'video')));
     showToast('वीडियो हटाया गया');
   };
 
