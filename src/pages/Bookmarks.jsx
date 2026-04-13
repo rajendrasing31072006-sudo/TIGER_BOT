@@ -58,7 +58,7 @@ export default function Bookmarks() {
         </div>
       ) : (
         bookmarks.map(item => (
-          <div key={item.id} className="card" onClick={() => handleClick(item)}>
+          <div key={`${item.type}-${item.id}`} className="card" onClick={() => handleClick(item)}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', flex: 1 }}>
                 <div style={{

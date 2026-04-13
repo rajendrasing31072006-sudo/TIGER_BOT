@@ -11,32 +11,20 @@ export function useApp() {
   return useContext(AppContext);
 }
 
+function loadFromStorage(key, fallback) {
+  const saved = localStorage.getItem(key);
+  return saved ? JSON.parse(saved) : fallback;
+}
+
 export function AppProvider({ children }) {
-  const [notes, setNotes] = useState([]);
-  const [pdfs, setPdfs] = useState([]);
-  const [images, setImages] = useState([]);
-  const [videos, setVideos] = useState([]);
-  const [links, setLinks] = useState([]);
-  const [bookmarks, setBookmarks] = useState([]);
+  const [notes, setNotes] = useState(() => loadFromStorage('raj_notes', sampleNotes));
+  const [pdfs, setPdfs] = useState(() => loadFromStorage('raj_pdfs', samplePdfs));
+  const [images, setImages] = useState(() => loadFromStorage('raj_images', sampleImages));
+  const [videos, setVideos] = useState(() => loadFromStorage('raj_videos', sampleVideos));
+  const [links, setLinks] = useState(() => loadFromStorage('raj_links', sampleLinks));
+  const [bookmarks, setBookmarks] = useState(() => loadFromStorage('raj_bookmarks', []));
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState(null);
-
-  useEffect(() => {
-    // Load data from localStorage or use sample data
-    const savedNotes = localStorage.getItem('raj_notes');
-    const savedPdfs = localStorage.getItem('raj_pdfs');
-    const savedImages = localStorage.getItem('raj_images');
-    const savedVideos = localStorage.getItem('raj_videos');
-    const savedLinks = localStorage.getItem('raj_links');
-    const savedBookmarks = localStorage.getItem('raj_bookmarks');
-
-    setNotes(savedNotes ? JSON.parse(savedNotes) : sampleNotes);
-    setPdfs(savedPdfs ? JSON.parse(savedPdfs) : samplePdfs);
-    setImages(savedImages ? JSON.parse(savedImages) : sampleImages);
-    setVideos(savedVideos ? JSON.parse(savedVideos) : sampleVideos);
-    setLinks(savedLinks ? JSON.parse(savedLinks) : sampleLinks);
-    setBookmarks(savedBookmarks ? JSON.parse(savedBookmarks) : []);
-  }, []);
 
   // Save to localStorage whenever data changes
   useEffect(() => {
@@ -71,10 +59,10 @@ export function AppProvider({ children }) {
   const toggleBookmark = (item) => {
     const exists = bookmarks.find(b => b.id === item.id && b.type === item.type);
     if (exists) {
-      setBookmarks(bookmarks.filter(b => !(b.id === item.id && b.type === item.type)));
+      setBookmarks(prev => prev.filter(b => !(b.id === item.id && b.type === item.type)));
       showToast('बुकमार्क हटाया गया');
     } else {
-      setBookmarks([...bookmarks, item]);
+      setBookmarks(prev => [...prev, item]);
       showToast('बुकमार्क जोड़ा गया');
     }
   };
