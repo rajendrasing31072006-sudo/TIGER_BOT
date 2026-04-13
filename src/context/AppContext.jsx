@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { sampleNotes } from '../data/notes';
 import { samplePdfs } from '../data/pdfs';
 import { sampleImages } from '../data/images';
@@ -12,8 +12,12 @@ export function useApp() {
 }
 
 function loadFromStorage(key, fallback) {
-  const saved = localStorage.getItem(key);
-  return saved ? JSON.parse(saved) : fallback;
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 export function AppProvider({ children }) {
@@ -51,9 +55,11 @@ export function AppProvider({ children }) {
     localStorage.setItem('raj_bookmarks', JSON.stringify(bookmarks));
   }, [bookmarks]);
 
+  const toastTimerRef = useRef(null);
   const showToast = (message) => {
+    clearTimeout(toastTimerRef.current);
     setToast(message);
-    setTimeout(() => setToast(null), 2500);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2500);
   };
 
   const toggleBookmark = (item) => {
