@@ -50,6 +50,7 @@ export function AuthProvider({ children }) {
           size: 'invisible',
           callback: () => {},
           'expired-callback': () => {
+            try { window.recaptchaVerifier.clear(); } catch (e) {}
             window.recaptchaVerifier = null;
           }
         });
@@ -58,6 +59,7 @@ export function AuthProvider({ children }) {
       setConfirmationResult(result);
       return result;
     } catch (error) {
+      try { window.recaptchaVerifier.clear(); } catch (e) {}
       window.recaptchaVerifier = null;
       if (error.code === 'auth/invalid-phone-number') {
         setAuthError('अमान्य फ़ोन नंबर। कृपया +91 के साथ 10 अंक दर्ज करें।');
