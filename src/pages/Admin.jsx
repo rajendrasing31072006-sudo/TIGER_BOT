@@ -169,7 +169,7 @@ function AddVideoForm({ onAdd }) {
   const [videoId, setVideoId] = useState('');
 
   const extractVideoId = (input) => {
-    const match = input.match(/(?:youtube\.com\/watch\?.*v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+    const match = input.match(/(?:youtube\.com\/(?:watch\?.*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     return match ? match[1] : input;
   };
 
