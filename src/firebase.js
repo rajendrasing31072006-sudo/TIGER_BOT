@@ -1,15 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
-// Replace with your Firebase project config
-// Get this from: Firebase Console → Project Settings → Your apps → Web app
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBaUIwUCtdxFA36LBCwE1fRdu4jgwS13_k",
+  authDomain: "rajasthan-exam-app.firebaseapp.com",
+  projectId: "rajasthan-exam-app",
+  storageBucket: "rajasthan-exam-app.firebasestorage.app",
+  messagingSenderId: "900904682363",
+  appId: "1:900904682363:web:3f85e2a0007612a46873de"
 };
 
 const app = initializeApp(firebaseConfig);
