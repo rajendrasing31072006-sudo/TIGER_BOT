@@ -3,6 +3,8 @@ import { auth } from '../firebase';
 import {
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider,
   RecaptchaVerifier,
   signInWithPhoneNumber,
@@ -26,6 +28,9 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState(null);
 
   useEffect(() => {
+    // Check for redirect result (mobile Google login)
+    getRedirectResult(auth).catch(() => {});
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
@@ -37,7 +42,13 @@ export function AuthProvider({ children }) {
     setAuthError(null);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      // Use redirect on mobile (popups are blocked), popup on desktop
+      const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+      if (isMobile) {
+        await signInWithRedirect(auth, provider);
+      } else {
+        await signInWithPopup(auth, provider);
+      }
     } catch (error) {
       if (error.code !== 'auth/popup-closed-by-user') {
         setAuthError('Google लॉगिन विफल। कृपया पुनः प्रयास करें।');
