@@ -11,6 +11,10 @@ import {
 
 const AuthContext = createContext();
 
+const ADMIN_EMAILS = [
+  'rajendrasing31072006@gmail.com',
+];
+
 export function useAuth() {
   return useContext(AuthContext);
 }
@@ -104,9 +108,12 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const isAdmin = user?.email ? ADMIN_EMAILS.includes(user.email) : false;
+
   const value = {
     user,
     loading,
+    isAdmin,
     authError,
     confirmationResult,
     loginWithGoogle,

@@ -23,6 +23,14 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+function AdminRoute({ children }) {
+  const { user, loading, isAdmin } = useAuth();
+  if (loading) return <div className="loading-screen">लोड हो रहा है...</div>;
+  if (!user) return <Navigate to="/login" replace />;
+  if (!isAdmin) return <Navigate to="/" replace />;
+  return children;
+}
+
 function App() {
   const { toast } = useApp();
   const { user, loading } = useAuth();
@@ -49,7 +57,7 @@ function App() {
           <Route path="/images" element={<ProtectedRoute><Images /></ProtectedRoute>} />
           <Route path="/videos" element={<ProtectedRoute><Videos /></ProtectedRoute>} />
           <Route path="/links" element={<ProtectedRoute><Links /></ProtectedRoute>} />
-          <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+          <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
           <Route path="/bookmarks" element={<ProtectedRoute><Bookmarks /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to={user ? "/" : "/login"} replace />} />

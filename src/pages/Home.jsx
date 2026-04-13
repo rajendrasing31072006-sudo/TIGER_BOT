@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { FiFileText, FiFile, FiImage, FiVideo, FiLink, FiBookmark } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
   const categories = [
     { path: '/notes', icon: '📝', label: 'नोट्स', desc: 'टॉपिक वाइज नोट्स' },
@@ -12,6 +14,10 @@ export default function Home() {
     { path: '/links', icon: '🔗', label: 'महत्वपूर्ण लिंक', desc: 'सोशल मीडिया लिंक' },
     { path: '/bookmarks', icon: '⭐', label: 'बुकमार्क', desc: 'सेव किए गए आइटम' },
   ];
+
+  if (isAdmin) {
+    categories.push({ path: '/admin', icon: '⚙️', label: 'एडमिन', desc: 'कंटेंट प्रबंधन' });
+  }
 
   const exams = [
     { name: 'BSTC प्रवेश परीक्षा', badge: 'bstc' },
