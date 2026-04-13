@@ -40,23 +40,23 @@ export function AppProvider({ children }) {
 
   // Save to localStorage whenever data changes
   useEffect(() => {
-    if (notes.length) localStorage.setItem('raj_notes', JSON.stringify(notes));
+    localStorage.setItem('raj_notes', JSON.stringify(notes));
   }, [notes]);
 
   useEffect(() => {
-    if (pdfs.length) localStorage.setItem('raj_pdfs', JSON.stringify(pdfs));
+    localStorage.setItem('raj_pdfs', JSON.stringify(pdfs));
   }, [pdfs]);
 
   useEffect(() => {
-    if (images.length) localStorage.setItem('raj_images', JSON.stringify(images));
+    localStorage.setItem('raj_images', JSON.stringify(images));
   }, [images]);
 
   useEffect(() => {
-    if (videos.length) localStorage.setItem('raj_videos', JSON.stringify(videos));
+    localStorage.setItem('raj_videos', JSON.stringify(videos));
   }, [videos]);
 
   useEffect(() => {
-    if (links.length) localStorage.setItem('raj_links', JSON.stringify(links));
+    localStorage.setItem('raj_links', JSON.stringify(links));
   }, [links]);
 
   useEffect(() => {
@@ -69,9 +69,9 @@ export function AppProvider({ children }) {
   };
 
   const toggleBookmark = (item) => {
-    const exists = bookmarks.find(b => b.id === item.id);
+    const exists = bookmarks.find(b => b.id === item.id && b.type === item.type);
     if (exists) {
-      setBookmarks(bookmarks.filter(b => b.id !== item.id));
+      setBookmarks(bookmarks.filter(b => !(b.id === item.id && b.type === item.type)));
       showToast('बुकमार्क हटाया गया');
     } else {
       setBookmarks([...bookmarks, item]);
@@ -79,8 +79,8 @@ export function AppProvider({ children }) {
     }
   };
 
-  const isBookmarked = (id) => {
-    return bookmarks.some(b => b.id === id);
+  const isBookmarked = (id, type) => {
+    return bookmarks.some(b => b.id === id && b.type === type);
   };
 
   const addNote = (note) => {

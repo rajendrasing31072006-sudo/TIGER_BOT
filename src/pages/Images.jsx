@@ -43,11 +43,11 @@ export default function Images() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span className="image-card-title">{img.title}</span>
                 <button
-                  className={`bookmark-btn ${isBookmarked(img.id) ? 'active' : ''}`}
+                  className={`bookmark-btn ${isBookmarked(img.id, 'image') ? 'active' : ''}`}
                   onClick={() => toggleBookmark({ ...img, type: 'image' })}
                   style={{ fontSize: 14 }}
                 >
-                  {isBookmarked(img.id) ? <FaBookmark /> : <FiBookmark />}
+                  {isBookmarked(img.id, 'image') ? <FaBookmark /> : <FiBookmark />}
                 </button>
               </div>
             </div>

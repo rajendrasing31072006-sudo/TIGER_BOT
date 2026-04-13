@@ -48,10 +48,10 @@ export default function Videos() {
                 <div className="card-category" style={{ marginTop: 4 }}>{video.category}</div>
               </div>
               <button
-                className={`bookmark-btn ${isBookmarked(video.id) ? 'active' : ''}`}
+                className={`bookmark-btn ${isBookmarked(video.id, 'video') ? 'active' : ''}`}
                 onClick={() => toggleBookmark({ ...video, type: 'video' })}
               >
-                {isBookmarked(video.id) ? <FaBookmark /> : <FiBookmark />}
+                {isBookmarked(video.id, 'video') ? <FaBookmark /> : <FiBookmark />}
               </button>
             </div>
           </div>

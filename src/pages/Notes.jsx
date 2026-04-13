@@ -42,13 +42,13 @@ export default function Notes() {
           <div className="card-meta">
             <span>{new Date(note.createdAt).toLocaleDateString('hi-IN')}</span>
             <button
-              className={`bookmark-btn ${isBookmarked(note.id) ? 'active' : ''}`}
+              className={`bookmark-btn ${isBookmarked(note.id, 'note') ? 'active' : ''}`}
               onClick={(e) => {
                 e.stopPropagation();
                 toggleBookmark({ ...note, type: 'note' });
               }}
             >
-              {isBookmarked(note.id) ? <FaBookmark /> : <FiBookmark />}
+              {isBookmarked(note.id, 'note') ? <FaBookmark /> : <FiBookmark />}
             </button>
           </div>
         </div>

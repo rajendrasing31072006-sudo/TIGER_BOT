@@ -44,10 +44,10 @@ export default function NoteDetail() {
         </button>
         <div style={{ display: 'flex', gap: 8 }}>
           <button
-            className={`bookmark-btn ${isBookmarked(note.id) ? 'active' : ''}`}
+            className={`bookmark-btn ${isBookmarked(note.id, 'note') ? 'active' : ''}`}
             onClick={() => toggleBookmark({ ...note, type: 'note' })}
           >
-            {isBookmarked(note.id) ? <FaBookmark /> : <FiBookmark />}
+            {isBookmarked(note.id, 'note') ? <FaBookmark /> : <FiBookmark />}
           </button>
           <button className="bookmark-btn" onClick={handleShare}>
             <FiShare2 />

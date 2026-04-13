@@ -25,11 +25,11 @@ export default function Pdfs() {
           </div>
           <div className="pdf-actions">
             <button
-              className={`bookmark-btn ${isBookmarked(pdf.id) ? 'active' : ''}`}
+              className={`bookmark-btn ${isBookmarked(pdf.id, 'pdf') ? 'active' : ''}`}
               onClick={() => toggleBookmark({ ...pdf, type: 'pdf' })}
               style={{ fontSize: 16 }}
             >
-              {isBookmarked(pdf.id) ? <FaBookmark /> : <FiBookmark />}
+              {isBookmarked(pdf.id, 'pdf') ? <FaBookmark /> : <FiBookmark />}
             </button>
             <button
               className="pdf-btn pdf-view-btn"
