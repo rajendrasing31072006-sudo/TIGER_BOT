@@ -1,0 +1,17 @@
+{
+  "name": "राजस्थान परीक्षा तैयारी",
+  "short_name": "राज परीक्षा",
+  "description": "राजस्थान प्रतियोगी परीक्षा तैयारी - BSTC, REET, पटवारी",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F7FA",
+  "theme_color": "#1565C0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
