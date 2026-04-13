@@ -5,7 +5,7 @@ import { FiSearch, FiBookmark, FiSettings, FiLogOut, FiUser } from 'react-icons/
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
 
   const getTitle = () => {
     const path = location.pathname;
@@ -39,9 +39,11 @@ export default function Header() {
         <button className="header-btn" onClick={() => navigate('/bookmarks')}>
           <FiBookmark />
         </button>
-        <button className="header-btn" onClick={() => navigate('/admin')}>
-          <FiSettings />
-        </button>
+        {isAdmin && (
+          <button className="header-btn" onClick={() => navigate('/admin')}>
+            <FiSettings />
+          </button>
+        )}
         {user && (
           <button className="header-btn user-avatar-btn" onClick={handleLogout} title="लॉगआउट">
             {user.photoURL ? (
