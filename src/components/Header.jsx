@@ -1,9 +1,11 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FiSearch, FiBookmark, FiSettings } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext.jsx';
+import { FiSearch, FiBookmark, FiSettings, FiLogOut, FiUser } from 'react-icons/fi';
 
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const getTitle = () => {
     const path = location.pathname;
@@ -16,7 +18,13 @@ export default function Header() {
     if (path === '/admin') return 'एडमिन पैनल';
     if (path === '/bookmarks') return 'बुकमार्क';
     if (path === '/search') return 'खोजें';
+    if (path === '/profile') return 'प्रोफ़ाइल';
     return 'राजस्थान परीक्षा तैयारी';
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
   };
 
   return (
@@ -34,6 +42,15 @@ export default function Header() {
         <button className="header-btn" onClick={() => navigate('/admin')}>
           <FiSettings />
         </button>
+        {user && (
+          <button className="header-btn user-avatar-btn" onClick={handleLogout} title="लॉगआउट">
+            {user.photoURL ? (
+              <img src={user.photoURL} alt="" className="user-avatar" />
+            ) : (
+              <FiLogOut />
+            )}
+          </button>
+        )}
       </div>
     </header>
   );
